@@ -3,15 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
         btn.addEventListener('click', function () {
             const timeArg = btn.getAttribute('arg');
             let coin_name = document.getElementById('coin_name').innerText
-            if (timeArg === '1d') {
-                window.location.href = `http://localhost:8000/coin/${coin_name}/?time=1d`;
-            }
-            if (timeArg === '7d') {
-                window.location.href = `http://localhost:8000/coin/${coin_name}/?time=7d`;
-            }
-            if (timeArg === '20d') {
-                window.location.href = `http://localhost:8000/coin/${coin_name}/?time=20d`;
-            }
+            window.location.href = `http://localhost:8000/coin/${coin_name}/?time=${timeArg}`;
         });
     });
 
