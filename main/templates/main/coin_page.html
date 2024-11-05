@@ -12,10 +12,10 @@
     <input type="hidden" id="task_id" value="{{task_id}}">
     <h2 id="coin_name">{{coin}}</h2>
     <div class="btn-time">
-       <input type="button" arg="1d" value="1 дн." class="btn btn-primary" {% if time == "1d" %}disabled{% endif %}>
+       <input type="button" arg="1d" value="1 дн." class="btn1 btn btn-primary" {% if time == "1d" %}disabled{% endif %}>
 
-        <input type="button" arg="7d" value="7 дн." class="btn btn-primary" {% if time == "7d" %}disabled{% endif %}>
-        <input type="button" arg="20d" value="20 дн." class="btn btn-primary" {% if time == "20d" %}disabled{% endif %}>
+        <input type="button" arg="7d" value="7 дн." class="btn1 btn btn-primary" {% if time == "7d" %}disabled{% endif %}>
+        <input type="button" arg="20d" value="20 дн." class="btn1 btn btn-primary" {% if time == "20d" %}disabled{% endif %}>
     </div>
     <img src="data:image/png;base64,{{ image_base64 }}" alt="График цены закрытия">
 
