@@ -4,4 +4,5 @@ from . import views
 
 urlpatterns = [
     path('', views.main),
+    path('coin/<str:coin>/', views.coin_view),
 ]

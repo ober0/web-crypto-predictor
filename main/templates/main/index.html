@@ -1,0 +1,19 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All coins</title>
+    <link rel="stylesheet" href="{% static 'main/css/index.css'%}">
+</head>
+<body>
+    <div class="coins">
+    {% for key, item in coins.items %}
+        <div id="{{key}}" class="btn">
+            <h2>{{key}}</h2><p>{{item}}</p>
+        </div>
+    {% endfor %}
+    </div>
+</body>
+<script src="{% static 'main/js/index.js'%}"></script>
+</html>

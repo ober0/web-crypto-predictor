@@ -1,0 +1,24 @@
+.btn{
+    display: flex;
+    background: linear-gradient(45deg, lightblue, lightgreen);
+    align-items: center;
+    gap: 12px;
+    padding: 15px;
+    border-radius: 20px;
+    width: max-content;
+    transition: all 0.3s;
+    cursor: pointer;
+}
+.btn:hover{
+    transform: scale(1.1);
+
+}
+.btn p, .btn h2{
+    margin: 0;
+}
+
+.coins{
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
