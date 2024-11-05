@@ -2,7 +2,9 @@ from datetime import datetime, timedelta
 import requests
 from django.http import JsonResponse
 import pandas as pd
-from .model import Model
+from .tasks import train_model
+from celery.result import AsyncResult
+
 
 def predict(request, symbol):
     interval = request.GET.get('interval')
@@ -29,19 +31,27 @@ def predict(request, symbol):
     # Выполнение запроса
     response = requests.get(url)
     data = response.json()
-    num_cols = ['Open Time', 'Open', 'High', 'Low', 'Close']
 
-    df = pd.DataFrame(data, columns=['Open Time', 'Open', 'High', 'Low', 'Close', 'Volume', 'Close Time', 'Quote Asset Volume', 'Number of Trades', 'Taker Buy Base Asset Volume', 'Taker Buy Quote Asset Volume', 'Ignore'])[num_cols]
-    df['Open Time'] = pd.to_datetime(df['Open Time'], unit='ms')
-    df['Open'] = pd.to_numeric(df['Open'], errors='coerce')
-    df['High'] = pd.to_numeric(df['High'], errors='coerce')
-    df['Low'] = pd.to_numeric(df['Low'], errors='coerce')
-    df['Close'] = pd.to_numeric(df['Close'], errors='coerce')
-    df.dropna(inplace=True)
-    print(df)
-    model = Model(df)
-    predict = model.prediction.flatten()
-    print(predict)
-    return JsonResponse({
-        'predict': float(predict[0]),  # Преобразуем предсказание в список
-    })
+
+    prediction_task = train_model.delay(data)
+
+    return JsonResponse({'status': 'training started', 'task_id': prediction_task.id})
+
+
+def result(request, task_id):
+    task_result = AsyncResult(task_id)
+    print(task_result.state)
+    if task_result.state == 'PENDING':
+        return JsonResponse({
+            'status': 'training',
+        })
+    elif task_result.state == 'SUCCESS':
+        return JsonResponse({
+            'status': 'success',
+            'result': task_result.result,
+        })
+    else:
+        return JsonResponse({
+            'status': 'unsuccessful',
+            'error': str(task_result.info)
+        })
