@@ -40,7 +40,6 @@ def predict(request, symbol):
 
 def result(request, task_id):
     task_result = AsyncResult(task_id)
-    print(task_result.state)
     if task_result.state == 'PENDING':
         return JsonResponse({
             'status': 'training',

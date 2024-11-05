@@ -21,6 +21,12 @@ def train_model(data):
     df.dropna(inplace=True)
     time.sleep(10)
     model = Model(df)
-    return model.prediction.flatten().tolist()
+    data = {
+        'Open': model.prediction.flatten().tolist()[0],
+        'High': model.prediction.flatten().tolist()[1],
+        'Low': model.prediction.flatten().tolist()[2],
+        'Close': model.prediction.flatten().tolist()[3],
+    }
+    return data
 
 
