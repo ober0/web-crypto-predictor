@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll('.btn1').forEach(btn => {
         btn.addEventListener('click', function (event) {
             const timeArg = btn.getAttribute('arg');
-            i
+
             console.log(timeArg)
             let coin_name = document.getElementById('coin_name').innerText
             window.location.href = `http://localhost:8000/coin/${coin_name}/?time=${timeArg}`;
